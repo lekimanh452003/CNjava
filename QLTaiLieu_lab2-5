@@ -1,0 +1,120 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package lab2_5;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ *
+ * @author fptshop
+ */
+public class QLThuVien {
+
+    List<TaiLieu> tailieus;
+    Scanner sc;
+
+    public QLThuVien() {
+        sc = new Scanner(System.in);
+        tailieus = new ArrayList<TaiLieu>();
+    }
+
+    void themmoi1() {
+        System.out.println("Lua chon: ");
+        System.out.println("1. SACH; 2. TAP CHI; 3. BAO");
+        int luachon;
+        luachon = Integer.parseInt(sc.nextLine());
+        switch (luachon) {
+            case 1:
+                Sach s = new Sach();
+                s.nhap();
+                tailieus.add(s);
+                break;
+            case 2:
+                TapChi tc = new TapChi();
+                tc.nhap();
+                tailieus.add(tc);
+                break;
+            case 3:
+                Bao b = new Bao();
+                b.nhap();
+                tailieus.add(b);
+
+        }
+    }
+
+    public static void menu() {
+        System.out.println("1. Nhập thông tin về các tài liệu");
+        System.out.println("2. Hiển thị thông tin về các tài liệu");
+        System.out.println("3.Tìm kiếm tài liệu theo loại");
+        System.out.println("4.Tìm kiếm tài liệu theo tên tác giả");
+        System.out.println("5.Tìm kiếm theo tên tác giả “gần đúng”");
+        System.out.println("6.Hiển thị danh sách về loại tài liệu theo chỉ định của người sử dụng.");
+        System.out.println("7.thoat");
+    }
+
+    void timKiemTheoLoai(String loai) {
+        System.out.println("Ds tai liẹu " + loai + ":");
+        if (loai.equalsIgnoreCase("sach")) {
+            for (TaiLieu tl : tailieus) {
+                if (tl instanceof Sach) {
+                    tl.xuat();
+                }
+            }
+        }
+        if (loai.equalsIgnoreCase("tapchi")) {
+            for (TaiLieu tl : tailieus) {
+                if (tl instanceof Sach) {
+                    tl.xuat();
+                }
+            }
+        }
+        if (loai.equalsIgnoreCase("bao")) {
+            for (TaiLieu tl : tailieus) {
+                if (tl instanceof Sach) {
+                    tl.xuat();
+                }
+            }
+        }
+
+    }
+
+    void timKiemTheoTenTG(String ten) {
+        for (TaiLieu tl : tailieus) {
+            if (tl instanceof Sach) {
+                Sach sach = (Sach) tl;
+                if (sach.getTenTacGia().indexOf(ten) != -1) {
+                    tl.xuat();
+                }
+                }
+            }
+        }
+    
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        QLThuVien ql = new QLThuVien();
+        char ch = 'Y';
+        int sotl = 0;
+        do {
+            System.out.println("Nhap tai lieu thu " + (sotl + 1));
+            ql.themmoi1();
+            sotl = ql.tailieus.size();
+            System.out.print("");
+            System.out.println("Tiep tuc khong? y/n");
+            ch = ql.sc.nextLine().toUpperCase().charAt(0);
+
+        } while (ch != 'N');
+        System.out.println("Danh sach da nhap: ");
+        for (TaiLieu tl : ql.tailieus) {
+            tl.xuat();
+        }
+        System.out.println("Nhap vao loai tai lieu can tim: ");
+        ql.timKiemTheoLoai(sc.nextLine());
+        System.out.println("Nhap vao loai ten tac gia can tim: ");
+        ql.timKiemTheoTenTG(sc.nextLine());
+    }
+}
